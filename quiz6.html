@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Frattali</title>
+  <link rel="stylesheet" href="css1.css">
+</head>
+<body>
+  <h1>Frattali</h1>
+
+  <div class="container">
+    
+    <img id="img1" src="immagini/fr11.jpg" alt="Immagine 1" onclick="valuta(this)" data-correct="true">
+    <img id="img2" src="immagini/fr12.jpg" alt="Immagine 2" onclick="valuta(this)" data-correct="false">
+  </div>
+
+  <div id="risultato"></div>
+  <div id="punteggio"></div>
+
+ 
+  <button id="nextBtn" onclick="vaiAvanti()">Next</button>
+
+  <script>
+    let rispostaData = false;
+
+
+    if (!sessionStorage.getItem("inizio")) {
+      sessionStorage.setItem("punteggio", 0);
+      sessionStorage.setItem("inizio", "true"); 
+    }
+
+    
+    let punteggio = parseInt(sessionStorage.getItem("punteggio")) || 0;
+
+    
+    document.getElementById("punteggio").innerText = "Punteggio: " + punteggio;
+
+    function valuta(elemento) {
+      if (rispostaData) return;
+      rispostaData = true;
+
+      let corretto = elemento.getAttribute("data-correct") === "true";
+
+      if (corretto) {
+        document.getElementById("risultato").innerText = "Giusto! +10 punti";
+        punteggio += 10;
+      } else {
+        document.getElementById("risultato").innerText = "Sbagliato! +0 punti";
+      }
+
+      
+      sessionStorage.setItem("punteggio", punteggio);
+
+      
+      document.getElementById("punteggio").innerText = "Punteggio: " + punteggio;
+    }
+
+    function vaiAvanti() {
+      window.location.href = "quiz7.html"; 
+    }
+  </script>
+</body>
+</html>
